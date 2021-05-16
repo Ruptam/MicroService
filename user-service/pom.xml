@@ -11,6 +11,7 @@
 	<groupId>com.bapan</groupId>
 	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>User Service</name>
 	<description>Spring Boot Service for User</description>
 	<properties>
@@ -22,16 +23,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                        <scope>provided</scope>
+                </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> -->
-			<!-- <groupId>org.springframework.cloud</groupId> -->
-			<!-- <artifactId>spring-cloud-starter-config</artifactId> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -52,11 +53,37 @@
 
 
 	<build>
+		<finalName>userservice</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>exec-maven-plugin</artifactId>
+                                <version>1.6.0</version>
+
+                                <executions>
+                                        <execution>
+                                                <id>docker-package</id>
+                                                <phase>package</phase>
+                                                <goals>
+                                                        <goal>exec</goal>
+                                                </goals>
+                                                <configuration>
+                                                        <executable>docker</executable>
+                                                        <workingDirectory>${project.basedir}</workingDirectory>
+                                                        <arguments>
+                                                                <argument>build</argument>
+                                                                <argument>-t</argument>
+                                                                <argument>user-service</argument>
+                                                                <argument>.</argument>
+                                                        </arguments>
+                                                </configuration>
+                                        </execution>
+                                </executions>
+                        </plugin>
 		</plugins>
 	</build>
 

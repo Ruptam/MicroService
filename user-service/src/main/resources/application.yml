@@ -1,9 +1,4 @@
-server:
-  port: 8081
-  
-eureka:
-  instance:
-    hostname: localhost
+
 
 spring:
   application:

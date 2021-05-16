@@ -29,7 +29,7 @@ public class UserController {
         Person person = userService.retrieveUser(personId);
         if (person != null) {
             List<Contact> contacts = restTemplate.getForObject(
-                        "http://contact-service/contact/"+personId, List.class);
+                        "http://13.234.113.110:8081/contactservice/contact/"+personId, List.class);
             person.setContacts(contacts);
             return new ResponseEntity<Person>(person, HttpStatus.OK);
         }
